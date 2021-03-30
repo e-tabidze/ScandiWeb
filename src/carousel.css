@@ -1,0 +1,40 @@
+.contianer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider {
+  width: 100%;
+  display: flex;
+  position: relative;
+  bottom: -18px;
+}
+
+.slider .wrapper {
+  display: flex;
+  align-items: center;
+  /* flex-wrap: wrap; */
+  width: 2160;
+  cursor: pointer;
+}
+
+.slider .slide {
+  width: 360px;
+  display: flex;
+  width: 100%;
+  padding: 20px;
+}
+
+@media only screen and (min-width) {
+  .slider-wrapper {
+    overflow: hidden;
+    width: 100%;
+  }
+}
+
+.wrapper-active {
+  filter: brightness(2);
+  cursor: grabbing;
+  display: flex;
+}
