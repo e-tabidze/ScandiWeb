@@ -1,5 +1,6 @@
 import React from "react";
-import Carousel from "./carousel";
+import Carousel from "./Carousel/Carousel";
+// import Carousel from "./carousel";
 import "regenerator-runtime/runtime";
 
 const App = () => {
@@ -12,25 +13,68 @@ const App = () => {
     {
       image:
         "https://blog.desafiolatam.com/wp-content/uploads/2019/04/react-galaxia.png",
-      key:
-        "And this is carousel component in React, created without 'npx create-react-app'",
+      key: "And this is carousel component in React, created without 'npx create-react-app'",
     },
     {
       image: "https://xpgraph.com/wp-content/uploads/2017/12/reactjs.jpg",
-      key:
-        "Honestly, I enjoyed doing this task, tnx for opportunity to learn sth new ",
+      key: "I really enjoyed doing this task, tnx for opportunity to learn sth new ",
     },
     {
       image:
         "https://scontent.ftbs5-2.fna.fbcdn.net/v/t1.6435-9/82040019_10158115685727022_8486535397537480704_n.jpg?_nc_cat=103&ccb=1-3&_nc_sid=e3f864&_nc_ohc=TB6twcBwLBwAX9nP4-p&_nc_ht=scontent.ftbs5-2.fna&oh=710158b6989d7b17ca301fd2819ccc8d&oe=6082F2E9",
-      key:
-        "I am looking forward to hearing from you! Say hello to Latvia, I really missed it",
+      key: "I am looking forward to hearing from you!",
     },
   ];
 
   return (
     <div>
-      <Carousel carouselData={carouselData} />
+      {/* <Carousel carouselData={carouselData} /> */}
+      <Carousel
+        show={3}
+        style={{
+          maxWidth: 1200,
+          marginLeft: "auto",
+          marginRight: "auto",
+          marginTop: 64,
+        }}
+      >
+        <div>
+          <div style={{ padding: 8 }}>
+            <img
+              src="https://via.placeholder.com/300x300"
+              alt="placeholder"
+              style={{ width: "100%" }}
+            />
+          </div>
+        </div>
+        <div>
+          <div style={{ padding: 8 }}>
+            <img
+              src="https://via.placeholder.com/300x300"
+              alt="placeholder"
+              style={{ width: "100%" }}
+            />
+          </div>
+        </div>
+        <div>
+          <div style={{ padding: 8 }}>
+            <img
+              src="https://via.placeholder.com/300x300"
+              alt="placeholder"
+              style={{ width: "100%" }}
+            />
+          </div>
+        </div>
+        <div>
+          <div style={{ padding: 8 }}>
+            <img
+              src="https://via.placeholder.com/300x300"
+              alt="placeholder"
+              style={{ width: "100%" }}
+            />
+          </div>
+        </div>
+      </Carousel>
     </div>
   );
 };

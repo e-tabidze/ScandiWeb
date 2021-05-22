@@ -1,6 +1,6 @@
 .slideimg {
-  width: 800px;
-  height: 800px;
+  width: 300px;
+  height: 300px;
   object-fit: contain;
   overflow: hidden;
   padding: 10px;
@@ -12,7 +12,7 @@
   transform: scale(1.05);
 }
 .slideheader {
-  color: #191A1C;
+  color: #191a1c;
 }
 
 .button-container {
