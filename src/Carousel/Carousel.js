@@ -1,17 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, createRef } from "react";
 import "./Carousel.css";
 
 const Carousel = (props) => {
+  const slider = createRef();
+
   const { children, show } = props;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(children.length);
   const [touchPosition, setTouchPosition] = useState(null);
   const [isDown, setIsDown] = useState(false);
   const [active, setActive] = useState(false);
+  const [startX, setStartX] = useState();
+  const [scrollLeft, setScrollLeft] = useState(slider.current.scrollLeft);
+
+  useEffect(() => {
+    getSlider();
+  }, [slider.current.scrollLeft]);
+
+  console.log(scrollLeft);
 
   useEffect(() => {
     setLength(children.length);
   }, [children]);
+
+  const getSlider = () => {
+  };
 
   const next = () => {
     if (currentIndex < length - show) {
@@ -52,16 +65,14 @@ const Carousel = (props) => {
     setTouchPosition(null);
   };
 
-  // drag with mouse
-  // let isDown = false;
-  let startX;
-  let scrollLeft;
+  // let scrollLeft;
 
   const handleMouseDown = (e) => {
     setIsDown(true);
     setActive(true);
-    console.log(e.pageX, "e");
-    console.log(active, "active");
+    // scrollLeft = slider.current.scrollLeft;
+    console.log(scrollLeft);
+    setStartX(e.pageX - slider.current.getBoundingClientRect().left);
   };
 
   const hanldeMouseLeave = () => {
@@ -74,9 +85,12 @@ const Carousel = (props) => {
     setActive(false);
   };
 
-  const handleMouseMove = () => {
+  const handleMouseMove = (e) => {
     if (!isDown) return;
-    console.log(isDown, "isdown");
+    e.preventDefault();
+    const x = e.pageX - slider.current.getBoundingClientRect().left;
+    const walk = x - startX;
+    // setScrollLeft(walk);
   };
 
   return (
@@ -86,12 +100,12 @@ const Carousel = (props) => {
           &lt;
         </button>
         <div
-          // className="carousel-content-wrapper"
           className={
             active
               ? "carousel-content-wrapper-active"
               : "carousel-content-wrapper"
           }
+          ref={slider}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onMouseDown={handleMouseDown}

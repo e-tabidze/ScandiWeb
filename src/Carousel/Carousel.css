@@ -9,7 +9,12 @@
   width: 100%;
   height: 100%;
 }
-
+.carousel-content-wrapper-active {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  /* position: absolute; */
+}
 .carousel-content {
   display: flex;
   transition: all 250ms linear;
