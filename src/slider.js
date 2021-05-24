@@ -19,10 +19,6 @@ class App extends React.Component {
     this.startX = e.pageX - this.slider.current.offsetLeft;
     this.scrollLeft = this.slider.current.scrollLeft;
     this.slider.current.style.cursor = "grabbing";
-    // console.log(
-    //   e.pageX - this.slider.current.offsetLeft,
-    //   this.slider.current.scrollLeft
-    // );
   };
   onMouseLeave = () => {
     this.isDown = false;
@@ -31,6 +27,8 @@ class App extends React.Component {
     this.isDown = false;
     this.slider.current.style.cursor = "pointer";
   };
+
+  
   onMouseMove = (e) => {
     if (!this.isDown) {
       return;
@@ -45,6 +43,8 @@ class App extends React.Component {
       this.slider.current.scrollLeft = this.state.left;
     });
   };
+
+
   goLeftPercent = () => {
     return {
       transform: `translatex(${this.p}px)`,
@@ -109,7 +109,6 @@ class App extends React.Component {
         </div>
         <div className="slider-arrows">
           <div onClick={this.goLeft} className="arrow-wrapper">
-            {" "}
             Left
             <div className="arrow-left">
               <div className="arrow-top" /> <div className="arrow-bottom" />{" "}

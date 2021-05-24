@@ -1,5 +1,6 @@
 import React from "react";
-import Carousel from "./Carousel/Carousel";
+// import Carousel from "./Carousel/Carousel";
+import Carousel from "./Carousel";
 import "regenerator-runtime/runtime";
 
 const App = () => {
