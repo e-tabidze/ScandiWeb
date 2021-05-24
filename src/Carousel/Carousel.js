@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, createRef } from "react";
 import "./Carousel.css";
 
 const Carousel = (props) => {
-  const slider = createRef();
+  const slider = useRef();
 
   const { children, show } = props;
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -11,20 +11,10 @@ const Carousel = (props) => {
   const [isDown, setIsDown] = useState(false);
   const [active, setActive] = useState(false);
   const [startX, setStartX] = useState();
-  const [scrollLeft, setScrollLeft] = useState(slider.current.scrollLeft);
-
-  useEffect(() => {
-    getSlider();
-  }, [slider.current.scrollLeft]);
-
-  console.log(scrollLeft);
 
   useEffect(() => {
     setLength(children.length);
   }, [children]);
-
-  const getSlider = () => {
-  };
 
   const next = () => {
     if (currentIndex < length - show) {
@@ -65,13 +55,9 @@ const Carousel = (props) => {
     setTouchPosition(null);
   };
 
-  // let scrollLeft;
-
   const handleMouseDown = (e) => {
     setIsDown(true);
     setActive(true);
-    // scrollLeft = slider.current.scrollLeft;
-    console.log(scrollLeft);
     setStartX(e.pageX - slider.current.getBoundingClientRect().left);
   };
 
@@ -89,8 +75,8 @@ const Carousel = (props) => {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - slider.current.getBoundingClientRect().left;
-    const walk = x - startX;
-    // setScrollLeft(walk);
+    const walk = startX - x;
+    slider.current.scrollLeft = walk;
   };
 
   return (
