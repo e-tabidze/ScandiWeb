@@ -79,32 +79,51 @@ const Carousel = (props) => {
     e.preventDefault();
     const x = e.pageX - slider.current.getBoundingClientRect().left;
     const walk = startX - x;
-    const z = slider.current.scrollLeft - walk;
+    const z = slider.current.scrollLeft + walk;
     setLeft(left + z);
-    slider.current.scrollLeft = walk;
+    slider.current.scrollLeft = z;
   };
 
   const goLeftPercent = () => {
     return {
-      transform: `translatex(${p}px)`,
+      // transform: `translatex(${p}px)`,
       transition: "0.3s",
     };
   };
-  const goLeft = () => {
-    if (p < -970) {
-      return;
-    }
-    setP(p - 326);
-    setLeft({ left: p });
-    setPercent(true);
+  // const goLeft = () => {
+  //   if (p < -970) {
+  //     return;
+  //   }
+  //   setP(p - 326);
+  //   setLeft({ left: p });
+  //   setPercent(true);
+  // };
+
+  const goLeft = (e) => {
+    if (isDown) return;
+    e.preventDefault();
+    // const walk = 300;
+    const z = slider.current.scrollLeft + 300;
+    setLeft(left + z);
+    slider.current.scrollLeft = z;
+    console.log(z);
   };
-  const goRight = () => {
-    if (p === 0) {
-      return;
-    }
-    setP(p + 326);
-    setLeft({ left: p });
+  const goRight = (e) => {
+    if (isDown) return;
+    e.preventDefault();
+    // const walk = 300;
+    const z = slider.current.scrollLeft - 300;
+    setLeft(left - z);
+    slider.current.scrollLeft = z;
+    console.log(z);
   };
+  // const goRight = () => {
+  //   if (p === 0) {
+  //     return;
+  //   }
+  //   setP(p + 326);
+  //   setLeft({ left: p });
+  // };
 
   const mouseMove = () => {
     if (left > 0) {
@@ -114,9 +133,9 @@ const Carousel = (props) => {
       setLeft(-980);
       return;
     }
-    return {
-      transform: `translatex(${left}px)`,
-    };
+    // return {
+    //   transform: `translatex(${left}px)`,
+    // };
   };
 
   return (
@@ -131,8 +150,8 @@ const Carousel = (props) => {
               ? "carousel-content-wrapper-active"
               : "carousel-content-wrapper"
           }
-          ref={slider}
           style={percent ? goLeftPercent() : mouseMove()}
+          ref={slider}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onMouseDown={handleMouseDown}
