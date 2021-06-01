@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef, createRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Carousel.css";
 
 const Carousel = (props) => {
   const slider = useRef();
-
   const { children, show } = props;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(children.length);
@@ -11,6 +10,7 @@ const Carousel = (props) => {
   const [isDown, setIsDown] = useState(false);
   const [active, setActive] = useState(false);
   const [startX, setStartX] = useState();
+  const [left, setLeft] = useState(0);
 
   useEffect(() => {
     setLength(children.length);
@@ -31,7 +31,6 @@ const Carousel = (props) => {
   const handleTouchStart = (e) => {
     const touchDown = e.touches[0].clientX;
     setTouchPosition(touchDown);
-    console.log("touchdown");
   };
 
   const handleTouchMove = (e) => {
@@ -56,9 +55,11 @@ const Carousel = (props) => {
   };
 
   const handleMouseDown = (e) => {
+    e.persist();
     setIsDown(true);
     setActive(true);
     setStartX(e.pageX - slider.current.getBoundingClientRect().left);
+    slider.current.style.cursor = "grabbing";
   };
 
   const hanldeMouseLeave = () => {
@@ -76,13 +77,39 @@ const Carousel = (props) => {
     e.preventDefault();
     const x = e.pageX - slider.current.getBoundingClientRect().left;
     const walk = startX - x;
-    slider.current.scrollLeft = walk;
+    const z = slider.current.scrollLeft + walk;
+    setLeft(left + z);
+    slider.current.scrollLeft = z;
+  };
+  const goLeft = (e) => {
+    if (isDown) return;
+    e.preventDefault();
+    const z = slider.current.scrollLeft - 300;
+    setLeft(left - z);
+    slider.current.scrollLeft = z;
+  };
+  const goRight = (e) => {
+    if (isDown) return;
+    e.preventDefault();
+    const z = slider.current.scrollLeft + 300;
+    setLeft(left + z);
+    slider.current.scrollLeft = z;
+  };
+
+  const mouseMove = () => {
+    if (left > 0) {
+      setLeft(0);
+      return;
+    } else if (left < -980) {
+      setLeft(-980);
+      return;
+    }
   };
 
   return (
     <div className="carousel-container">
       <div className="carousel-wrapper">
-        <button className="left-arrow" onClick={prev}>
+        <button className="left-arrow" onClick={goLeft}>
           &lt;
         </button>
         <div
@@ -91,6 +118,7 @@ const Carousel = (props) => {
               ? "carousel-content-wrapper-active"
               : "carousel-content-wrapper"
           }
+          style={mouseMove()}
           ref={slider}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
@@ -110,7 +138,7 @@ const Carousel = (props) => {
             {children}
           </div>
         </div>
-        <button className="right-arrow" onClick={next}>
+        <button className="right-arrow" onClick={goRight}>
           &gt;
         </button>
       </div>
